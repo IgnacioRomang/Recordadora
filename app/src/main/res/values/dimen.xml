@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="hola">45dp</dimen>
+    <dimen name="Text_dim">300dp</dimen>
+    <dimen name="space">40dp</dimen>
+</resources>

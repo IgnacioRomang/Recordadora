@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Recordadora</string>
+    <string name="r_titulo">Titulo</string>
+    <string name="r_titulo_hint">Titulo...</string>
+    <string name="r_desc">Descripción</string>
+    <string name="r_desc_hint">Descripción...</string>
+    <string name="r_date">Fecha</string>
+    <string name="r_hora">Hora</string>
+    <string name="r_botton_aceptar">Recordar!</string>
+    <string name="r_time_noSet">Tiempo: No selecionado </string>
+    <string name="r_select">Elegir</string>
+    <string name="r_toast_ok">Recordatorio enviado!"</string>
+    <string name="r_toast_sad">Algo anda mal! :("</string>
+</resources>
+<!--  <string name=""></string> -->
