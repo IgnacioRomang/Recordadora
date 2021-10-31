@@ -11,5 +11,11 @@
     <string name="r_select">Elegir</string>
     <string name="r_toast_ok">Recordatorio enviado!"</string>
     <string name="r_toast_sad">Algo anda mal! :("</string>
-</resources>
-<!--  <string name=""></string> -->
+    <string name="r_date_hint">dd/mm/aaaa</string>
+    <string name="r_hora_hint">hh:mm</string>
+    <string name="r_error_cargar">Por favor complete todos los campos</string>
+    <string name="channel_name">21496</string>
+    <string name="drawer_O">Drawer open</string>
+    <string name="drawer_C">Drawer close</string>
+    <string name="add_msj_cositas"> No tiene ningun recordatorio</string>
+</resources><!--  <string name=""></string> -->

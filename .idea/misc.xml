@@ -4,12 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/drawable/ic__1e93fddc42dbc5e04a7adb7fdfd234d.xml" value="0.240625" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/activity_crear_recordatorio.xml" value="0.33" />
-        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/activity_main.xml" value="0.13360507246376813" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/activity_settings.xml" value="0.22" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/drawer_layout.xml" value="0.22" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/filas_recordatorio.xml" value="0.209375" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/header_navigation_drawer.xml" value="0.21296296296296297" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/nav_header.xml" value="0.33" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/layout/popuplay.xml" value="0.33" />
+        <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/menu/navigation_drawer.xml" value="0.21296296296296297" />
         <entry key="..\:/Users/Ignac/AndroidStudioProjects/Recordadora/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22552083333333334" />
       </map>
     </option>
