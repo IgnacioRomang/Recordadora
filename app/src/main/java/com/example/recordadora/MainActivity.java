@@ -85,32 +85,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             notificationManager.createNotificationChannel(channel);
         }
         listRec = new ArrayList<RecordatorioModel>();
+        //-----------------------------------------------------
         mAdapter = new RecordatorioAdapter(listRec);
-        //-----------------------------------------------------
-        repo.traerRecordatorios(new RecuperarRecordatorioCallback() {
-            @Override
-            public void resultado(boolean exito, List<RecordatorioModel> recordatorios) {
-                if(recordatorios!=null && listRec.isEmpty()){
-                    listRec = recordatorios;
-                    mAdapter.notifyDataSetChanged();
-                }
-            }
-        });
-        //-----------------------------------------------------
         agregar.setOnClickListener(this);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+        //-----------------------------------------------------
+        repo.traerRecordatorios(new RecuperarRecordatorioCallback() {
+            @Override
+            public void resultado(boolean exito, List<RecordatorioModel> recordatorios) {
+                if(recordatorios!=null && listRec.isEmpty()){
+                    mAdapter.setLista(recordatorios);
+                    mAdapter.notifyDataSetChanged();
+                    if(!recordatorios.isEmpty()){
+                        ocultarCartel();
+                    }
+                }
+            }
+        });
     }
 
+    public void ocultarCartel(){
+        if(cartel.getVisibility()== View.VISIBLE){
+            cartel.setVisibility(View.INVISIBLE);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data != null && resultCode == Activity.RESULT_OK){
-            if(cartel.getVisibility()== View.VISIBLE){
-                cartel.setVisibility(View.INVISIBLE);
-            }
+
+            ocultarCartel();
+
             RecordatorioModel n = data.getExtras().getParcelable("r_parcel");
             //---------------------------------------------------------
             repo.guardarRecordatorio(new RecordatorioDataSource.GuardarRecordatorioCallback() {

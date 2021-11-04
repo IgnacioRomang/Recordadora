@@ -54,7 +54,6 @@ public class RecordatorioPreferencesDataSource implements RecordatorioDataSource
                     nuvJson= new JSONObject(sharedPreferences.getString(i,null));
                     nuevo= new RecordatorioModel(nuvJson);
                     resultado.add(nuevo);
-                    Log.w("NACHITO", nuvJson.toString());
                 }catch (Exception e){}
             }
         }

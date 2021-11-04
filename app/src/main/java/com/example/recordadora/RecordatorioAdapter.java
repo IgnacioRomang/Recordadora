@@ -20,6 +20,9 @@ public class RecordatorioAdapter extends RecyclerView.Adapter<RecordatorioViewHo
         this.listRec = listRec;
     }
 
+    public void setLista(List<RecordatorioModel> e){
+        this.listRec=e;
+    }
     public void add(RecordatorioModel e){
         if(listRec==null){
             listRec= new ArrayList<RecordatorioModel>();
