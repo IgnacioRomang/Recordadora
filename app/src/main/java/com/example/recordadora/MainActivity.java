@@ -8,10 +8,12 @@ import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.net.Uri;
 import android.os.Build;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -32,12 +34,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+
+import com.example.recordadora.RecordatorioDataSource.RecuperarRecordatorioCallback;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
@@ -50,12 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DrawerLayout drawer;
     public static String RECORDATORIO = "com.example.tp3.RECORDATORIO";
     private static String NAME = "nevilleSettings";
+    private RecordatorioRepository repo;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        repo = new RecordatorioRepository(new RecordatorioPreferencesDataSource(MainActivity.this));
         agregar= findViewById(R.id.agregar);
         cartel=findViewById(R.id.cartelito);
+        recyclerView = findViewById(R.id.listado);
         //------------------------------------------------
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -65,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         //------------------------------------------------
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = getString(R.string.channel_name);
@@ -74,14 +84,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-        //------------------------------------------------
+        listRec = new ArrayList<RecordatorioModel>();
+        mAdapter = new RecordatorioAdapter(listRec);
+        //-----------------------------------------------------
+        repo.traerRecordatorios(new RecuperarRecordatorioCallback() {
+            @Override
+            public void resultado(boolean exito, List<RecordatorioModel> recordatorios) {
+                if(recordatorios!=null && listRec.isEmpty()){
+                    listRec = recordatorios;
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+        //-----------------------------------------------------
         agregar.setOnClickListener(this);
-        recyclerView = findViewById(R.id.listado);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        listRec = new ArrayList<RecordatorioModel>();
-        mAdapter = new RecordatorioAdapter(listRec);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -92,24 +111,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(cartel.getVisibility()== View.VISIBLE){
                 cartel.setVisibility(View.INVISIBLE);
             }
-            RecordatorioModel n = data.getExtras().getParcelable("r_parcel");;
+            RecordatorioModel n = data.getExtras().getParcelable("r_parcel");
+            //---------------------------------------------------------
+            repo.guardarRecordatorio(new RecordatorioDataSource.GuardarRecordatorioCallback() {
+                @Override
+                public void resultado(boolean exito){}
+            }, n);
             //---------------------------------------------------------
             mAdapter.add(n);
             mAdapter.notifyDataSetChanged();
             //---------------------------------------------------------
-            if(getSharedPreferences(NAME,0).getBoolean("notif",true)){
-                notificar(n);
+            SharedPreferences sharedPreferences = getSharedPreferences(NAME,0);
+            if(sharedPreferences.getBoolean("notif",true)){
+                int song = sharedPreferences.getInt("song",0);
+                notificar(n,song);
             }
         }
     }
-    private void notificar(RecordatorioModel n){
+    private void notificar(RecordatorioModel n,int song){
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, RecordatorioReceiver.class);
         //-----------------------------------------------------------
         intent.putExtra("not_titulo",n.getTitulo());
         intent.putExtra("not_texto",n.getTexto());
+        intent.putExtra("song",song);
         intent.setAction(RECORDATORIO);
-        PendingIntent intped= PendingIntent.getBroadcast(MainActivity.this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent intped= PendingIntent.getBroadcast(MainActivity.this,n.hashCode(),intent,PendingIntent.FLAG_UPDATE_CURRENT);
         //-----------------------------------------------------------
         Calendar t = Calendar.getInstance();
         t.setTime(n.getFecha());
@@ -131,17 +158,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // TODO: 10/30/2021 Mirar esto para que vuelva de settings y carge la lista
-        mAdapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.agregar:
+
                 Intent sig = new Intent(MainActivity.this,CrearRecordatorio.class);
                 startActivityForResult(sig,0);
                 break;
@@ -152,9 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.itemSettings:
-                //drawer.closeDrawer(GravityCompat.START);
+                drawer.closeDrawer(GravityCompat.START);
                 Intent sett = new Intent(MainActivity.this,Settings.class);
-                startActivity(sett);
+                startActivityForResult(sett,36);
                 break;
         }
         return false;

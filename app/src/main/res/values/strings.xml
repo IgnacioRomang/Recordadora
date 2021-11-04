@@ -18,4 +18,6 @@
     <string name="drawer_O">Drawer open</string>
     <string name="drawer_C">Drawer close</string>
     <string name="add_msj_cositas"> No tiene ningun recordatorio</string>
+    <string name="song_noti">Notificacion song</string>
+    <string name="r_toast_save_ok">Su recordatorio ha sido debidamente recordada</string>
 </resources><!--  <string name=""></string> -->

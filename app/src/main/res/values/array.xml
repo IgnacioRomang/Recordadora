@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array
+        name="sonidos">
+        <item>Buenas</item>
+        <item>Chumba</item>
+        <item>Fiumba</item>
+        <item>besitos chau chau</item>
+        <item>Chinga wat</item>
+        <item>Perder la Fe</item>
+        <item>Maldita lisiada</item>
+        <item>sure</item>
+
+    </string-array>
+</resources>

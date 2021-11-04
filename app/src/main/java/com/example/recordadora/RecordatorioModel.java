@@ -3,6 +3,9 @@ package com.example.recordadora;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
 import java.util.Objects;
 public class RecordatorioModel implements Parcelable {
@@ -81,6 +84,23 @@ public class RecordatorioModel implements Parcelable {
         return Objects.hash(texto) + Objects.hash(fecha) + Objects.hash(titulo);
     }
 
+    public  RecordatorioModel(JSONObject json) {
+        try {
+            this.texto = json.getString("text");
+            this.fecha = new Date(json.getLong("date"));
+            this.titulo = json.getString("titu");
+        }catch (Exception e){
+
+        }
+    }
+    public JSONObject toJSON() throws JSONException {
+        JSONObject resultado= new JSONObject();
+        resultado.put("titu",this.titulo);
+        resultado.put("text",this.texto);
+        resultado.put("date",this.fecha.getTime());
+
+        return resultado;
+    }
     @Override
     public int describeContents() {
         return 0;
