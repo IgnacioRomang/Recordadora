@@ -20,4 +20,5 @@
     <string name="add_msj_cositas"> No tiene ningun recordatorio</string>
     <string name="song_noti">Notificacion song</string>
     <string name="r_toast_save_ok">Su recordatorio ha sido debidamente recordada</string>
+    <string name="r_toast_save_sad">Error al recuperar los datos</string>
 </resources><!--  <string name=""></string> -->

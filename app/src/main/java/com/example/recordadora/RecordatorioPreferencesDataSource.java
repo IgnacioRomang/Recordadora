@@ -37,7 +37,7 @@ public class RecordatorioPreferencesDataSource implements RecordatorioDataSource
 
         }
         Boolean result= sharedPreferences.contains(key);
-        callback.resultado(true);
+        callback.resultado(result);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -45,7 +45,9 @@ public class RecordatorioPreferencesDataSource implements RecordatorioDataSource
     public void recuperarRecordatorios(RecuperarRecordatorioCallback callback) {
         List<RecordatorioModel> resultado= new ArrayList<>();
         Set<String> lista= sharedPreferences.getAll().keySet();
+        boolean restBool= false;
         if(!lista.isEmpty()){
+            restBool= true;
             resultado= new ArrayList<>();
             RecordatorioModel nuevo;
             JSONObject nuvJson;
@@ -57,6 +59,6 @@ public class RecordatorioPreferencesDataSource implements RecordatorioDataSource
                 }catch (Exception e){}
             }
         }
-        callback.resultado(true,resultado);
+        callback.resultado(restBool,resultado);
     }
 }

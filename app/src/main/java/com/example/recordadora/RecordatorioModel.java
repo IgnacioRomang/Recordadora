@@ -1,5 +1,10 @@
 package com.example.recordadora;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverter;
+import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,14 +13,20 @@ import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Objects;
+@Entity(tableName = "recordatorio")
 public class RecordatorioModel implements Parcelable {
-
-    private String titulo,texto;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+    private String titulo;
+    private String texto;
+    @TypeConverters({DataConverter.class})
     private Date fecha;
 
+    @Ignore
     public  RecordatorioModel() {
         super();
     }
+    @Ignore
     protected RecordatorioModel(Parcel in) {
         this.texto = in.readString();
         this.fecha = new Date(in.readLong());
@@ -26,6 +37,13 @@ public class RecordatorioModel implements Parcelable {
         dest.writeString( this.texto);
         dest.writeLong(this.fecha.getTime());
         dest.writeString( this.titulo);
+    }
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public static final Creator<RecordatorioModel> CREATOR = new Creator<RecordatorioModel>() {
@@ -84,6 +102,7 @@ public class RecordatorioModel implements Parcelable {
         return Objects.hash(texto) + Objects.hash(fecha) + Objects.hash(titulo);
     }
 
+    @Ignore
     public  RecordatorioModel(JSONObject json) {
         try {
             this.texto = json.getString("text");

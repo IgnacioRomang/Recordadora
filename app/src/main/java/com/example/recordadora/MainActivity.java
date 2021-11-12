@@ -63,11 +63,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        repo = new RecordatorioRepository(new RecordatorioPreferencesDataSource(MainActivity.this));
         agregar= findViewById(R.id.agregar);
         cartel=findViewById(R.id.cartelito);
         recyclerView = findViewById(R.id.listado);
         //------------------------------------------------
+        //repo = new RecordatorioRepository(new RecordatorioPreferencesDataSource(MainActivity.this));
+        repo = new RecordatorioRepository(RecordatorioRoomDataSource.getInstance(getBaseContext()));
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24);
@@ -97,10 +99,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void resultado(boolean exito, List<RecordatorioModel> recordatorios) {
                 if(recordatorios!=null && listRec.isEmpty()){
-                    mAdapter.setLista(recordatorios);
-                    mAdapter.notifyDataSetChanged();
-                    if(!recordatorios.isEmpty()){
-                        ocultarCartel();
+                    if(!exito){
+                        Toast.makeText(getApplicationContext(),getString(R.string.r_toast_save_sad), Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        mAdapter.setLista(recordatorios);
+                        mAdapter.notifyDataSetChanged();
+                        if (!recordatorios.isEmpty()) {
+                            ocultarCartel();
+                        }
                     }
                 }
             }
@@ -120,10 +127,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ocultarCartel();
 
             RecordatorioModel n = data.getExtras().getParcelable("r_parcel");
-            //---------------------------------------------------------
+            //--------------------------------------------------------
             repo.guardarRecordatorio(new RecordatorioDataSource.GuardarRecordatorioCallback() {
                 @Override
-                public void resultado(boolean exito){}
+                public void resultado(boolean exito){
+                    if(!exito){
+                        Toast.makeText(getApplicationContext(),getString(R.string.r_toast_save_ok), Toast.LENGTH_LONG).show();
+                    }
+                }
             }, n);
             //---------------------------------------------------------
             mAdapter.add(n);
@@ -172,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.agregar:
-
                 Intent sig = new Intent(MainActivity.this,CrearRecordatorio.class);
                 startActivityForResult(sig,0);
                 break;

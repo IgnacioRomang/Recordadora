@@ -124,7 +124,6 @@ public class CrearRecordatorio extends AppCompatActivity implements View.OnClick
 
                     siguiente.putExtra("r_parcel",nuevo);
                     setResult(Activity.RESULT_OK,siguiente);
-                    Toast.makeText(v.getContext(),getString(R.string.r_toast_ok), Toast.LENGTH_LONG).show();
                 }
                 finish();
                 break;
