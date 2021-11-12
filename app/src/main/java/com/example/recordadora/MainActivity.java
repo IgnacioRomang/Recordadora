@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void ocultarCartel(){
         if(cartel.getVisibility()== View.VISIBLE){
-            cartel.setVisibility(View.INVISIBLE);
+            cartel.setVisibility(View.GONE);
         }
     }
     @Override
@@ -166,11 +166,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                if (drawer.isDrawerOpen(GravityCompat.START)==false) {
+                if (drawer.isDrawerOpen(GravityCompat.START)==false || drawer.getVisibility()==View.INVISIBLE) {
+                    drawer.setVisibility(View.VISIBLE);
                     drawer.openDrawer(GravityCompat.START);
                 }
                 else{
                     drawer.closeDrawer(GravityCompat.START);
+                    drawer.setVisibility(View.INVISIBLE);
                 }
                 break;
         }
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (menuItem.getItemId()){
             case R.id.itemSettings:
                 drawer.closeDrawer(GravityCompat.START);
+                drawer.setVisibility(View.INVISIBLE);
                 Intent sett = new Intent(MainActivity.this,Settings.class);
                 startActivityForResult(sett,36);
                 break;

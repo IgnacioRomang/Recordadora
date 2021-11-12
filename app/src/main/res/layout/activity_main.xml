@@ -10,6 +10,7 @@
         android:id="@+id/listado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:isScrollContainer="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +57,7 @@
         android:id="@+id/drawer_lay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         tools:openDrawer="start"
         tools:visibility="invisible">
 
