@@ -12,7 +12,7 @@ import retrofit2.Response;
 public class RecordatorioAPIRestDataSource implements RecordatorioDataSource {
     private RetroCalls serv;
     public RecordatorioAPIRestDataSource(String user,String pass){
-        serv = ServiceGenerator.createService(RetroCalls.class,user,pass);
+        serv = RetrofitServ.createService(RetroCalls.class,user,pass);
     }
     @Override
     public void guardarRecordatorio(RecordatorioModel recordatorio, GuardarRecordatorioCallback callback) {
