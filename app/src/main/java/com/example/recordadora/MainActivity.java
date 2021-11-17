@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //new RecordatorioPreferencesDataSource(MainActivity.this)
         //RecordatorioRoomDataSource.getInstance(getBaseContext())
         //new RecordatorioAPIRestDataSource()
+        // TODO: 17/11/2021 AQUI SE CAMBIA EL TIPO DE DATO 
         repo = new RecordatorioRepository(new RecordatorioAPIRestDataSource());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

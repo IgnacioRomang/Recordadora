@@ -8,4 +8,6 @@
     <dimen name="radio">5sp</dimen>
     <dimen name="draw_tam">240sp</dimen>
     <dimen name="divider_h">0sp</dimen>
+    <dimen name="marg_r">8sp</dimen>
+    <dimen name="margTop_r">4sp</dimen>
 </resources>
