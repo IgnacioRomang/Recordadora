@@ -6,15 +6,15 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class BasicAuthInterceptor implements Interceptor {
+public class SysCadInterceptor implements Interceptor {
 
     private String credentials;
 
-    public BasicAuthInterceptor(String basicC){
+    public SysCadInterceptor(String basicC){
         this.credentials=basicC;
     }
-    public BasicAuthInterceptor(String user, String password) {
-        this.credentials = Credentials.basic(user, password);
+    public SysCadInterceptor(String user, String pass) {
+        this.credentials = Credentials.basic(user, pass);
     }
 
     @Override
