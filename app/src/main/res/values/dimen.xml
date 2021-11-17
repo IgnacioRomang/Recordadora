@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="hola">45dp</dimen>
+    <dimen name="Text_dim">300dp</dimen>
+    <dimen name="space">40dp</dimen>
+    <dimen name="TamTime">20sp</dimen>
+    <dimen name="content">18sp</dimen>
+    <dimen name="radio">5sp</dimen>
+    <dimen name="draw_tam">240sp</dimen>
+    <dimen name="divider_h">0sp</dimen>
+    <dimen name="marg_r">8sp</dimen>
+    <dimen name="margTop_r">4sp</dimen>
+</resources>
