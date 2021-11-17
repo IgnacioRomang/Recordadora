@@ -25,7 +25,7 @@ public class RecordatorioReceiver extends BroadcastReceiver {
         if(intent.getAction().equals(RECORDATORIO)){
             //---------------------------
             String titulo,texto;
-            titulo = intent.getExtras().getString("not_titulo");
+            titulo= "Recordatorio!";
             texto = intent.getExtras().getString("not_texto");
             NotificationCompat.Builder mBuilder;
             //-----------------------------

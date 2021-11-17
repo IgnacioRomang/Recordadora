@@ -9,7 +9,7 @@ import android.content.Context;
 
 import java.util.List;
 
-@Database(entities = {RecordatorioModel.class}, version = 1)
+@Database(entities = {RecordatorioModel.class}, version = 2)
 @TypeConverters({DataConverter.class})
 public abstract class RecordatorioRoomDataSource extends RoomDatabase implements RecordatorioDataSource{
     public abstract DaoRecorder recordarorioDao();

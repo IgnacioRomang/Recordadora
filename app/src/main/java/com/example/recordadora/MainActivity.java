@@ -5,48 +5,31 @@ import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioAttributes;
-import android.net.Uri;
 import android.os.Build;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.Toast;
 
 
 import com.example.recordadora.RecordatorioDataSource.RecuperarRecordatorioCallback;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton agregar;
@@ -67,8 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cartel=findViewById(R.id.cartelito);
         recyclerView = findViewById(R.id.listado);
         //------------------------------------------------
-        //repo = new RecordatorioRepository(new RecordatorioPreferencesDataSource(MainActivity.this));
-        repo = new RecordatorioRepository(RecordatorioRoomDataSource.getInstance(getBaseContext()));
+        //new RecordatorioPreferencesDataSource(MainActivity.this)
+        //RecordatorioRoomDataSource.getInstance(getBaseContext())
+        //new RecordatorioAPIRestDataSource()
+        repo = new RecordatorioRepository(new RecordatorioAPIRestDataSource());
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -150,9 +135,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void notificar(RecordatorioModel n,int song){
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(MainActivity.this, RecordatorioReceiver.class);
-        //-----------------------------------------------------------
-        intent.putExtra("not_titulo",n.getTitulo());
-        intent.putExtra("not_texto",n.getTexto());
+        //----------------------------------------------------------
+        intent.putExtra("not_texto",n.getMensaje());
         intent.putExtra("song",song);
         intent.setAction(RECORDATORIO);
         PendingIntent intped= PendingIntent.getBroadcast(MainActivity.this,n.hashCode(),intent,PendingIntent.FLAG_UPDATE_CURRENT);

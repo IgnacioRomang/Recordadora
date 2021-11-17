@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 public class RecordatorioViewHolder extends RecyclerView.ViewHolder {
     int lugar;
-    public TextView tiempo,titulo,conteido;
+    public TextView tiempo,conteido;
 
     public int getLugar() {
         return lugar;
@@ -28,7 +28,6 @@ public class RecordatorioViewHolder extends RecyclerView.ViewHolder {
 
     public RecordatorioViewHolder(@NonNull View itemView) {
         super(itemView);
-        titulo= itemView.findViewById(R.id.textViewTitulo);
         conteido = itemView.findViewById(R.id.textViewtText);
         tiempo= itemView.findViewById(R.id.textViewFecha);
     }

@@ -3,7 +3,6 @@ package com.example.recordadora;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -17,8 +16,7 @@ import java.util.Objects;
 public class RecordatorioModel implements Parcelable {
     @PrimaryKey(autoGenerate = true)
     private Integer id;
-    private String titulo;
-    private String texto;
+    private String mensaje;
     @TypeConverters({DataConverter.class})
     private Date fecha;
 
@@ -28,15 +26,13 @@ public class RecordatorioModel implements Parcelable {
     }
     @Ignore
     protected RecordatorioModel(Parcel in) {
-        this.texto = in.readString();
+        this.mensaje = in.readString();
         this.fecha = new Date(in.readLong());
-        this.titulo = in.readString();
     }
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString( this.texto);
+        dest.writeString( this.mensaje);
         dest.writeLong(this.fecha.getTime());
-        dest.writeString( this.titulo);
     }
     public Integer getId() {
         return id;
@@ -58,25 +54,17 @@ public class RecordatorioModel implements Parcelable {
         }
     };
 
-    public String getTitulo() {
-        return titulo;
-    }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public RecordatorioModel(final String texto, final String titulo, final Date fecha) {
-        this.texto = texto;
+    public RecordatorioModel(final String mensaje, final Date fecha) {
+        this.mensaje = mensaje;
         this.fecha = fecha;
-        this.titulo = titulo;
     }
 
-    public String getTexto() {
-        return texto;
+    public String getMensaje() {
+        return mensaje;
     }
-    public void setTexto(final String texto) {
-        this.texto = texto;
+    public void setMensaje(final String mensaje) {
+        this.mensaje = mensaje;
     }
     public Date getFecha() {
         return fecha;
@@ -94,30 +82,27 @@ public class RecordatorioModel implements Parcelable {
             return false;
         }
         final RecordatorioModel that = (RecordatorioModel) other;
-        return Objects.equals(this.texto, that.texto) && Objects.equals(this.fecha, that.fecha) && Objects.equals(this.titulo, that.titulo);
+        return Objects.equals(this.mensaje, that.mensaje) && Objects.equals(this.fecha, that.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(texto) + Objects.hash(fecha) + Objects.hash(titulo);
+        return Objects.hash(mensaje) + Objects.hash(fecha);
     }
 
     @Ignore
     public  RecordatorioModel(JSONObject json) {
         try {
-            this.texto = json.getString("text");
-            this.fecha = new Date(json.getLong("date"));
-            this.titulo = json.getString("titu");
+            this.mensaje = json.getString("mensaje");
+            this.fecha = new Date(json.getLong("fecha"));
         }catch (Exception e){
 
         }
     }
     public JSONObject toJSON() throws JSONException {
         JSONObject resultado= new JSONObject();
-        resultado.put("titu",this.titulo);
-        resultado.put("text",this.texto);
-        resultado.put("date",this.fecha.getTime());
-
+        resultado.put("mensaje",this.mensaje);
+        resultado.put("fecha",this.fecha.getTime());
         return resultado;
     }
     @Override

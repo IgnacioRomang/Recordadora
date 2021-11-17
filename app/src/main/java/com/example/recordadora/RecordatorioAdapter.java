@@ -1,6 +1,5 @@
 package com.example.recordadora;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +8,6 @@ import android.view.ViewGroup;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RecordatorioAdapter extends RecyclerView.Adapter<RecordatorioViewHolder> implements View.OnClickListener {
@@ -47,8 +45,7 @@ public class RecordatorioAdapter extends RecyclerView.Adapter<RecordatorioViewHo
         SimpleDateFormat formatoF = new SimpleDateFormat("dd/MM/yyyy - hh:mm");
         fech = formatoF.format(rec.getFecha());
         recordatorioViewHolder.tiempo.setText("Fecha: " +fech);
-        recordatorioViewHolder.titulo.setText(rec.getTitulo().toString());
-        recordatorioViewHolder.conteido.setText("  "+rec.getTexto().toString());
+        recordatorioViewHolder.conteido.setText("  "+rec.getMensaje().toString());
     }
 
     @Override
