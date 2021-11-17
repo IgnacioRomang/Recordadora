@@ -63,9 +63,6 @@ public class RecordatorioReceiver extends BroadcastReceiver {
                     mp = MediaPlayer.create(context,R.raw.perder_la_fe);
                     break;
                 case 6:
-                    mp = MediaPlayer.create(context,R.raw.maldita_lisiada);
-                    break;
-                case 7:
                     mp = MediaPlayer.create(context,R.raw.sure);
                     break;
                 default:
