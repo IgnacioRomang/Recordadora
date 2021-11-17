@@ -11,8 +11,8 @@ import retrofit2.Response;
 
 public class RecordatorioAPIRestDataSource implements RecordatorioDataSource {
     private RetroCalls serv;
-    public RecordatorioAPIRestDataSource(){
-        serv = ServiceGenerator.createService(RetroCalls.class,"23348","37396357r");
+    public RecordatorioAPIRestDataSource(String user,String pass){
+        serv = ServiceGenerator.createService(RetroCalls.class,user,pass);
         serv.getRecordatorios();
     }
     @Override
